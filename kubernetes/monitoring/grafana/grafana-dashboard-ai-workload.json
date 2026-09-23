@@ -1,0 +1,181 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": true,
+  "panels": [
+    {
+      "title": "AI Inference Request Rate (RPS)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 0 },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "sum(rate(ai_inference_requests_total[15s]))",
+          "legendFormat": "Total RPS"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps",
+          "color": { "mode": "palette-classic" }
+        }
+      }
+    },
+    {
+      "title": "Average & P95 / P99 Latency (ms)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 0 },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "(sum(rate(ai_inference_latency_seconds_sum[15s])) / sum(rate(ai_inference_latency_seconds_count[15s]))) * 1000",
+          "legendFormat": "Avg Latency (ms)"
+        },
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(ai_inference_latency_seconds_bucket[30s])) by (le)) * 1000",
+          "legendFormat": "P95 Latency (ms)"
+        },
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(ai_inference_latency_seconds_bucket[30s])) by (le)) * 1000",
+          "legendFormat": "P99 Latency (ms)"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms"
+        }
+      }
+    },
+    {
+      "title": "Active AI Workload Pods (Scaling Count)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 0 },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "count(count by (pod) (ai_process_cpu_percent))",
+          "legendFormat": "Discovered AI Pods"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "min": 0
+        }
+      }
+    },
+    {
+      "title": "Average Pod CPU Utilization (%)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 8 },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "avg(ai_process_cpu_percent)",
+          "legendFormat": "Mean Pod CPU %"
+        },
+        {
+          "expr": "max(ai_process_cpu_percent)",
+          "legendFormat": "Max Pod CPU %"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100
+        }
+      }
+    },
+    {
+      "title": "Total Process Memory RSS (MB)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 8 },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "sum(ai_process_memory_rss_bytes) / 1048576",
+          "legendFormat": "Total RSS Memory (MB)"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "decmbytes"
+        }
+      }
+    },
+    {
+      "title": "Concurrent In-Flight Requests",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 8 },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "sum(ai_active_requests)",
+          "legendFormat": "Active Requests"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        }
+      }
+    },
+    {
+      "title": "Inference Requests by Classification Topic",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "sum by (predicted_topic) (rate(ai_inference_requests_total[15s]))",
+          "legendFormat": "{{predicted_topic}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps"
+        }
+      }
+    },
+    {
+      "title": "Inference Error Count",
+      "type": "stat",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 16 },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "sum(increase(ai_inference_requests_total{status=\"error\"}[5m]))",
+          "legendFormat": "Errors (5m)"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": { "fixedColor": "red", "mode": "fixed" }
+        }
+      }
+    }
+  ],
+  "refresh": "2s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["kubernetes", "ai-workload", "research", "hpa"],
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": ["1s", "2s", "5s", "10s", "30s"]
+  },
+  "timezone": "browser",
+  "title": "AI Workload Kubernetes & HPA Research Dashboard",
+  "uid": "ai-workload-research-main",
+  "version": 1
+}

@@ -1,0 +1,57 @@
+{
+  "project": "Optimizing AI Workloads in Kubernetes-Based Environments",
+  "version": "1.0.0",
+  "repetitions_per_condition": 3,
+  "cooldown_between_runs_seconds": 10,
+  "profiles": {
+    "low": {
+      "name": "Low Resource Profile",
+      "manifest": "kubernetes/resource-profiles/low.yaml",
+      "cpu_request": "150m",
+      "cpu_limit": "250m",
+      "memory_request": "128Mi",
+      "memory_limit": "256Mi"
+    },
+    "medium": {
+      "name": "Medium Resource Profile",
+      "manifest": "kubernetes/resource-profiles/medium.yaml",
+      "cpu_request": "300m",
+      "cpu_limit": "500m",
+      "memory_request": "256Mi",
+      "memory_limit": "512Mi"
+    },
+    "high": {
+      "name": "High Resource Profile",
+      "manifest": "kubernetes/resource-profiles/high.yaml",
+      "cpu_request": "800m",
+      "cpu_limit": "1200m",
+      "memory_request": "512Mi",
+      "memory_limit": "1024Mi"
+    }
+  },
+  "workloads": {
+    "low": {
+      "name": "Low Workload (10 Users)",
+      "users": 10,
+      "spawn_rate": 2,
+      "duration_seconds": 30,
+      "complexity_factor": 1
+    },
+    "medium": {
+      "name": "Medium Workload (30 Users)",
+      "users": 30,
+      "spawn_rate": 5,
+      "duration_seconds": 35,
+      "complexity_factor": 2
+    },
+    "high": {
+      "name": "High Workload (60 Users)",
+      "users": 60,
+      "spawn_rate": 10,
+      "duration_seconds": 40,
+      "complexity_factor": 3
+    }
+  },
+  "scaling_modes": ["fixed", "hpa"],
+  "hpa_manifest": "kubernetes/hpa.yaml"
+}

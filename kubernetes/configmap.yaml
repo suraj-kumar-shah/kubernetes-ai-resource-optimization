@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ai-workload-config
+  namespace: ai-workload
+data:
+  ENVIRONMENT: "kubernetes-production"
+  DEFAULT_COMPLEXITY_FACTOR: "1"
+  MAX_BATCH_SIZE: "64"
+  WORKER_THREADS: "2"

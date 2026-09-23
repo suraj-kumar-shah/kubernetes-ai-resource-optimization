@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  ai-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ai-workload-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=docker-compose
+      - DEFAULT_COMPLEXITY_FACTOR=1
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/healthz')"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  prometheus:
+    image: prom/prometheus:v2.50.1
+    container_name: ai-workload-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./kubernetes/monitoring/prometheus/prometheus-configmap.yaml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - ai-backend
+
+  grafana:
+    image: grafana/grafana:10.3.3
+    container_name: ai-workload-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+    depends_on:
+      - prometheus
+
+  frontend:
+    image: node:20-alpine
+    container_name: ai-workload-frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    depends_on:
+      - ai-backend

@@ -1,0 +1,19 @@
+# Resource Profile: LOW
+# Designed to study AI workload behavior under tight CPU & memory constraints
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-workload-backend
+  namespace: ai-workload
+spec:
+  template:
+    spec:
+      containers:
+      - name: ai-backend
+        resources:
+          requests:
+            cpu: "150m"
+            memory: "128Mi"
+          limits:
+            cpu: "250m"
+            memory: "256Mi"
