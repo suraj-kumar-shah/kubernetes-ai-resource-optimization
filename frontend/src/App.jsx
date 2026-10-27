@@ -207,12 +207,10 @@ ${experimentsData.experiments.slice(0, 8).map(e => `${e.experiment_id} & ${e.con
 \\end{tabular}
 \\end{table*}` : '';
 
-  const bibtexCitation = `@article{shah2026optimizing,
-  title={Optimizing AI Workloads in Kubernetes-Based Environments: Resource Allocation Boundaries and Autoscaling Dynamics},
-  author={Shah, Suraj Kumar},
+  const bibtexCitation = `@article{k8s_ai_workloads_2026,
+  title={Optimizing AI Workloads in Kubernetes: Resource Allocation Boundaries and Autoscaling Dynamics},
   journal={IEEE Transactions on Cloud Computing},
-  year={2026},
-  publisher={IEEE}
+  year={2026}
 }`;
 
   // Filtered experiments
@@ -237,7 +235,6 @@ ${experimentsData.experiments.slice(0, 8).map(e => `${e.experiment_id} & ${e.con
           </div>
           <div className="brand-brandmark">
             <span className="brand-logo-name">KubeAI</span>
-            <span className="brand-logo-badge">Research</span>
           </div>
         </div>
 
@@ -301,7 +298,6 @@ ${experimentsData.experiments.slice(0, 8).map(e => `${e.experiment_id} & ${e.con
             className={`nav-status-badge ${isConnected ? 'connected' : 'disconnected'}`}
             title={isConnected ? `Connected to ${apiBaseUrl}` : 'Target Backend Unreachable'}
           >
-            <span className="status-dot"></span>
             <span>{isConnected ? 'Live' : 'Offline'}</span>
           </div>
 
@@ -322,36 +318,24 @@ ${experimentsData.experiments.slice(0, 8).map(e => `${e.experiment_id} & ${e.con
             ========================================================================= */}
         {activeTab === 'paper' && (
           <div>
-            {/* Prestigious Academic Paper Hero Header */}
+            {/* Clean Minimal Header */}
             <div className="paper-hero-header">
-              <div className="paper-pretitle">
-                <span className="badge badge-blue">IEEE Transactions Format</span>
-                <span className="paper-tagline">Cloud Computing & Kubernetes Research</span>
-              </div>
               <h1 className="paper-main-title">
-                Optimizing AI Workloads in Kubernetes-Based Environments:
-                <span className="paper-title-sub">Resource Allocation Boundaries and Autoscaling Dynamics</span>
+                Optimizing AI Workloads in Kubernetes
               </h1>
-              <div className="paper-byline">
-                <span className="author-name">Suraj Kumar Shah</span>
-                <span className="byline-dot">•</span>
-                <span>Department of Computer Science & Engineering</span>
-                <span className="byline-dot">•</span>
-                <span>Empirical 3 &times; 3 &times; 2 Factorial Study</span>
-              </div>
+              <p className="paper-subtitle">
+                Empirical resource allocation boundaries and autoscaling dynamics.
+              </p>
             </div>
 
-            {/* Paper Header Card */}
-            <div className="paper-abstract-box">
-              <div className="paper-abstract-title">Academic Research Paper Abstract</div>
-              <p className="paper-abstract-text">
-                This research evaluates the trade-offs between <strong>CPU/memory limits</strong> and <strong>Kubernetes Horizontal Pod Autoscaling (HPA v2)</strong> for containerized AI inference services. We execute a rigorous <strong>3 &times; 3 &times; 2 full-factorial empirical matrix</strong> measuring throughput, tail latency (p<sub>50</sub>, p<sub>95</sub>, p<sub>99</sub>), scaling response time (T<sub>scale</sub>), and hardware resource efficiency (&eta;). Our findings reveal that while HPA mitigates tail latency spikes by up to <strong>94.2%</strong> under high load, static over-allocation creates severe resource under-utilization during off-peak periods.
+            {/* Simple Abstract Box with Light-Weight Border */}
+            <div className="abstract-card">
+              <div className="abstract-card-title">Abstract</div>
+              <p className="abstract-card-text">
+                This research evaluates the trade-offs between CPU/memory limits and Kubernetes Horizontal Pod Autoscaling (HPA v2) for containerized AI inference services. We execute a 3 &times; 3 &times; 2 full-factorial empirical matrix measuring throughput, tail latency (p<sub>50</sub>, p<sub>95</sub>, p<sub>99</sub>), scaling response time (T<sub>scale</sub>), and hardware resource efficiency (&eta;). Our findings reveal that while HPA mitigates tail latency spikes by up to 94.2% under high load, static over-allocation creates severe resource under-utilization during off-peak periods.
               </p>
-              <div style={{ display: 'flex', gap: '12px', marginTop: '14px', flexWrap: 'wrap' }}>
-                <span className="badge badge-blue">Kubernetes v1.28+</span>
-                <span className="badge badge-green">FastAPI + Scikit-Learn</span>
-                <span className="badge badge-purple">HPA v2 Dynamic Autoscaler</span>
-                <span className="badge badge-amber">18 Factorial Conditions</span>
+              <div className="abstract-keywords">
+                <span className="keywords-label">Keywords:</span> Kubernetes, Horizontal Pod Autoscaling (HPA), AI inference latency, resource boundaries, cloud workload optimization.
               </div>
             </div>
 
@@ -888,7 +872,7 @@ ${experimentsData.experiments.slice(0, 8).map(e => `${e.experiment_id} & ${e.con
               </div>
               <div className="status-pill online">
                 <span className="pulse-dot"></span>
-                Node: {systemInfo?.pod_name || 'Surajs-MacBook-Air-7.local'}
+                Node: {systemInfo?.pod_name || 'k8s-node-worker-01'}
               </div>
             </div>
 
@@ -942,7 +926,7 @@ ${experimentsData.experiments.slice(0, 8).map(e => `${e.experiment_id} & ${e.con
                     <tbody>
                       <tr>
                         <td><strong>Container Host</strong></td>
-                        <td className="mono">{systemInfo?.pod_name || 'Surajs-MacBook-Air-7.local'}</td>
+                        <td className="mono">{systemInfo?.pod_name || 'k8s-node-worker-01'}</td>
                         <td>Local single-node Kubernetes / Docker Desktop testbed</td>
                       </tr>
                       <tr>
