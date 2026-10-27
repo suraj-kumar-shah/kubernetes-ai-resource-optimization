@@ -1,0 +1,110 @@
+{
+  "experiment_id": "EXP-2026-013",
+  "processed_at": "2026-10-26T23:51:00.088639",
+  "configuration": {
+    "resource_profile": "high",
+    "resource_details": {
+      "cpu_request": "800m",
+      "cpu_limit": "1200m",
+      "memory_request": "512Mi",
+      "memory_limit": "1024Mi"
+    },
+    "workload_profile": "low",
+    "workload_details": {
+      "users": 10,
+      "spawn_rate": 2,
+      "complexity_factor": 1
+    },
+    "scaling_mode": "fixed"
+  },
+  "resource_metrics": {
+    "cpu_request_cores": 0.8,
+    "cpu_limit_cores": 1.2,
+    "memory_request_mb": 512.0,
+    "memory_limit_mb": 1024.0
+  },
+  "statistical_results": {
+    "repetitions_count": 3,
+    "throughput_rps": {
+      "mean": 18.903,
+      "median": 18.99,
+      "std_dev": 0.159,
+      "min": 18.68,
+      "max": 19.04,
+      "p50": 18.99,
+      "p90": 19.03,
+      "p95": 19.035,
+      "p99": 19.039
+    },
+    "average_latency_ms": {
+      "mean": 12.26,
+      "median": 12.32,
+      "std_dev": 0.107,
+      "min": 12.11,
+      "max": 12.35,
+      "p50": 12.32,
+      "p90": 12.344,
+      "p95": 12.347,
+      "p99": 12.349
+    },
+    "p50_latency_ms": {
+      "mean": 10.79,
+      "median": 10.84,
+      "std_dev": 0.093,
+      "min": 10.66,
+      "max": 10.87,
+      "p50": 10.84,
+      "p90": 10.864,
+      "p95": 10.867,
+      "p99": 10.869
+    },
+    "p90_latency_ms": {
+      "mean": 16.55,
+      "median": 16.63,
+      "std_dev": 0.142,
+      "min": 16.35,
+      "max": 16.67,
+      "p50": 16.63,
+      "p90": 16.662,
+      "p95": 16.666,
+      "p99": 16.669
+    },
+    "p95_latency_ms": {
+      "mean": 19.863,
+      "median": 19.96,
+      "std_dev": 0.173,
+      "min": 19.62,
+      "max": 20.01,
+      "p50": 19.96,
+      "p90": 20.0,
+      "p95": 20.005,
+      "p99": 20.009
+    },
+    "p99_latency_ms": {
+      "mean": 25.743,
+      "median": 25.87,
+      "std_dev": 0.223,
+      "min": 25.43,
+      "max": 25.93,
+      "p50": 25.87,
+      "p90": 25.918,
+      "p95": 25.924,
+      "p99": 25.929
+    },
+    "pod_count": {
+      "mean": 1.0,
+      "median": 1.0,
+      "std_dev": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "p50": 1.0,
+      "p90": 1.0,
+      "p95": 1.0,
+      "p99": 1.0
+    },
+    "total_requests": 1700,
+    "failed_requests": 0,
+    "error_rate_percent": 0.0,
+    "resource_efficiency_score": 15.75
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "experiment_id": "EXP-2026-011",
+  "project": "Optimizing AI Workloads in Kubernetes-Based Environments",
+  "timestamp": "2026-10-26T23:50:59.765154",
+  "configuration": {
+    "resource_profile": "medium",
+    "resource_details": {
+      "cpu_request": "300m",
+      "cpu_limit": "500m",
+      "memory_request": "256Mi",
+      "memory_limit": "512Mi"
+    },
+    "workload_profile": "high",
+    "workload_details": {
+      "users": 60,
+      "spawn_rate": 10,
+      "complexity_factor": 3
+    },
+    "scaling_mode": "fixed"
+  },
+  "trials": [
+    {
+      "repetition": 1,
+      "locust_results": {
+        "current_rps": 20.49,
+        "average_response_time": 774.58,
+        "p50_ms": 681.63,
+        "p90_ms": 1045.68,
+        "p95_ms": 1254.82,
+        "p99_ms": 1626.62,
+        "request_count": 614,
+        "failure_count": 92
+      },
+      "max_pods_observed": 1
+    },
+    {
+      "repetition": 2,
+      "locust_results": {
+        "current_rps": 20.37,
+        "average_response_time": 769.89,
+        "p50_ms": 677.5,
+        "p90_ms": 1039.35,
+        "p95_ms": 1247.22,
+        "p99_ms": 1616.77,
+        "request_count": 611,
+        "failure_count": 91
+      },
+      "max_pods_observed": 1
+    },
+    {
+      "repetition": 3,
+      "locust_results": {
+        "current_rps": 20.06,
+        "average_response_time": 758.19,
+        "p50_ms": 667.21,
+        "p90_ms": 1023.56,
+        "p95_ms": 1228.27,
+        "p99_ms": 1592.2,
+        "request_count": 601,
+        "failure_count": 90
+      },
+      "max_pods_observed": 1
+    }
+  ]
+}

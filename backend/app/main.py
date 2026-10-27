@@ -18,6 +18,8 @@ from app.model import model_instance
 from app.inference import run_single_inference, run_batch_inference
 from app.metrics import get_prometheus_metrics
 
+from fastapi.staticfiles import StaticFiles
+
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
@@ -28,10 +30,18 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.ALLOWED_ORIGINS,
+    allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Mount experiment graphs if directory exists
+_experiments_base = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../experiments"))
+_graphs_dir = os.path.join(_experiments_base, "graphs")
+if os.path.exists(_graphs_dir):
+    app.mount("/experiments/graphs", StaticFiles(directory=_graphs_dir), name="graphs")
+
 
 
 # Request Models

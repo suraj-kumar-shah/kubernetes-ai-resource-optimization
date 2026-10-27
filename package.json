@@ -1,0 +1,13 @@
+{
+  "name": "kubernetes-ai-resource-optimization",
+  "version": "1.0.0",
+  "description": "Optimizing AI Workloads in Kubernetes-Based Environments - Research Platform",
+  "scripts": {
+    "dev": "npm run dev --prefix frontend",
+    "frontend": "npm run dev --prefix frontend",
+    "backend": "npm run dev --prefix backend",
+    "build": "npm run build --prefix frontend"
+  },
+  "author": "Suraj Kumar Shah",
+  "license": "MIT"
+}
