@@ -4,7 +4,7 @@
    Theme: Pristine White Background, High-Contrast Typography, Refined Cards
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
   /* Surfaces & Backgrounds - Clean Academic White */
@@ -59,6 +59,7 @@
 
   /* Fonts */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Crimson Pro', 'Times New Roman', 'Cambria', Georgia, serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace;
 
   /* Radii */
@@ -676,11 +677,10 @@ textarea.input-field {
   box-shadow: var(--shadow-xs);
 }
 
-/* Paper Abstract Box */
+/* Paper Abstract Box - Clean Uniform Border */
 .paper-abstract-box {
-  background: linear-gradient(to right bottom, #ffffff, #f8fafc);
+  background: #ffffff;
   border: 1px solid var(--border-default);
-  border-left: 4px solid var(--primary);
   border-radius: var(--radius-lg);
   padding: 20px 24px;
   margin-bottom: 24px;
@@ -881,3 +881,848 @@ textarea.input-field {
   font-weight: 600;
   text-align: right;
 }
+
+/* ==========================================================================
+   ACADEMIC RESEARCH PAPER DOCUMENT STYLES (IEEE / ACM SCHOLARLY THEME)
+   ========================================================================== */
+
+.academic-paper-container {
+  max-width: 1260px;
+  margin: 0 auto;
+  padding-bottom: 60px;
+  transition: max-width 0.2s ease;
+}
+
+.academic-paper-container.full-width-container {
+  max-width: 100%;
+}
+
+.academic-article-frame {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  padding: 44px 50px;
+  box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.04), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.academic-paper-container.full-width-container .academic-article-frame {
+  padding: 34px 40px;
+}
+
+/* Apple iOS-Inspired Scholarly Header Bar */
+.academic-journal-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  font-family: var(--font-sans);
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.banner-left-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  color: #86868b;
+  font-weight: 500;
+  flex-wrap: wrap;
+}
+
+.banner-publisher-pill {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 3px 8px;
+  border-radius: 980px;
+  background: #f5f5f7;
+  color: #1d1d1f;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.banner-title-text {
+  font-weight: 600;
+  color: #1d1d1f;
+}
+
+.banner-dot, .dot-sep {
+  color: #c7c7cc;
+}
+
+.banner-artifact-id {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #86868b;
+}
+
+.banner-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Apple-Grade Action Pill Buttons */
+.ios-action-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 980px;
+  background: #f5f5f7;
+  color: #1d1d1f;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.ios-action-pill:hover {
+  background: #e8e8ed;
+  color: #000000;
+  transform: scale(1.02);
+}
+
+.ios-action-pill:active {
+  transform: scale(0.98);
+}
+
+.ios-action-pill.active {
+  background: #0071e3;
+  color: #ffffff;
+  border-color: #0071e3;
+}
+
+.ios-close-pill:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-color: #fca5a5;
+}
+
+/* Apple Typography */
+.academic-title {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #1d1d1f;
+  margin: 22px 0 10px;
+  letter-spacing: -0.025em;
+}
+
+.academic-subtitle {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", sans-serif;
+  font-size: 14px;
+  color: #6e6e73;
+  font-weight: 400;
+  line-height: 1.55;
+  margin-bottom: 22px;
+}
+
+/* iOS Grouped Inset Metadata Card */
+.academic-meta-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  padding: 14px 18px;
+  background: #f5f5f7;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 14px;
+  margin-bottom: 22px;
+}
+
+.academic-meta-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.meta-cell-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #86868b;
+  font-family: var(--font-sans);
+}
+
+.meta-cell-val {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #1d1d1f;
+  line-height: 1.4;
+}
+
+/* iOS Segmented Table of Contents Chips */
+.academic-toc-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 0;
+  margin-bottom: 26px;
+  position: sticky;
+  top: 60px;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.academic-toc-chip {
+  background: #f5f5f7;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  border-radius: 980px;
+  padding: 6px 14px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #1d1d1f;
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: var(--font-sans);
+}
+
+.academic-toc-chip:hover {
+  background: #e8e8ed;
+  color: #000000;
+  transform: translateY(-1px);
+}
+
+.academic-toc-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+/* Formal Abstract Box - Clean Professional Uniform Border */
+.academic-abstract-box {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 22px 26px;
+  border-radius: 14px;
+  margin-bottom: 28px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.academic-abstract-content {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  line-height: 1.7;
+  color: #1e293b;
+  text-align: justify;
+}
+
+.academic-abstract-content strong {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #0f172a;
+  margin-right: 6px;
+}
+
+.academic-index-terms {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-default);
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.academic-index-terms strong {
+  color: #0f172a;
+}
+
+/* Academic Sections */
+.academic-section {
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.academic-sec-heading {
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-weight: 700;
+  color: #0f172a;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 14px;
+  letter-spacing: -0.2px;
+}
+
+.academic-sec-num {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0;
+}
+
+.academic-subsec-heading {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 20px 0 8px;
+  letter-spacing: 0.1px;
+}
+
+.academic-paragraph {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  line-height: 1.75;
+  color: #1e293b;
+  margin-bottom: 16px;
+  text-align: justify;
+}
+
+.academic-paragraph code {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  background: var(--bg-muted);
+  padding: 2px 5px;
+  border-radius: 3px;
+  border: 1px solid var(--border-default);
+  color: #0f172a;
+}
+
+/* Academic Diagram Card Frame */
+.diagram-frame {
+  background: #ffffff;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin: 22px 0 10px;
+  box-shadow: var(--shadow-xs);
+  overflow-x: auto;
+}
+
+.diagram-svg-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.diagram-svg-wrap svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.figure-caption {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 0 16px;
+}
+
+.figure-caption strong {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* Numbered Academic Equations */
+.equation-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: #fbfcfe;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  margin: 16px 0;
+}
+
+.equation-body {
+  flex: 1;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 17px;
+  color: #0f172a;
+}
+
+.equation-number {
+  font-family: var(--font-serif);
+  font-size: 14.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+  padding-left: 16px;
+}
+
+/* Booktabs Formal Academic Table */
+.booktabs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  margin: 18px 0;
+  border-top: 2px solid #0f172a;
+  border-bottom: 2px solid #0f172a;
+}
+
+.booktabs-table th {
+  padding: 8px 10px;
+  text-align: left;
+  font-weight: 700;
+  color: #0f172a;
+  border-bottom: 1px solid #0f172a;
+  background: #ffffff;
+}
+
+.booktabs-table th.num, .booktabs-table td.num {
+  text-align: right;
+}
+
+.booktabs-table td {
+  padding: 8px 10px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.booktabs-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.booktabs-table tbody tr:hover td {
+  background: #f8fafc;
+}
+
+/* Hypotheses Verification Grid - Apple iOS Inset Card Style */
+.hypothesis-result-card {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  padding: 18px 22px;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hypothesis-result-card:hover {
+  border-color: rgba(0, 0, 0, 0.14);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.hypothesis-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.hypothesis-title {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: #0f172a;
+}
+
+/* Formal Bibliographic References */
+.academic-ref-list {
+  list-style: none;
+  padding: 0;
+  margin: 14px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.academic-ref-item {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  padding-left: 32px;
+  position: relative;
+}
+
+.academic-ref-num {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: 600;
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.academic-ref-item em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: #0f172a;
+}
+
+/* ==========================================================================
+   ACADEMIC NOMENCLATURE & ACRONYM GLOSSARY STYLES
+   ========================================================================== */
+
+.glossary-search-bar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.glossary-search-input {
+  flex: 1;
+  min-width: 220px;
+  padding: 8px 14px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  outline: none;
+  background: #ffffff;
+  color: var(--text-primary);
+  transition: border-color 0.15s ease;
+}
+
+.glossary-search-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-subtle);
+}
+
+.glossary-filter-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.glossary-pill-btn {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 11.5px;
+  font-weight: 500;
+  border: 1px solid var(--border-default);
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.glossary-pill-btn:hover {
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.glossary-pill-btn.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.glossary-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 18px 0;
+}
+
+.glossary-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  padding: 18px 22px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glossary-card:hover {
+  border-color: rgba(0, 0, 0, 0.14);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.glossary-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.glossary-term-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.glossary-code-badge {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  background: #f5f5f7;
+  color: #1d1d1f;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.glossary-full-title {
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.glossary-category-pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-muted);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-default);
+}
+
+.glossary-details-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.glossary-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.glossary-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+.glossary-desc {
+  color: var(--text-secondary);
+}
+
+.glossary-desc strong {
+  color: #0f172a;
+}
+
+/* ==========================================================================
+   HOME PAGE BOTTOM RESEARCH PAPER REVEAL CARD & TOOLBAR
+   ========================================================================== */
+
+.research-toggle-strip {
+  width: 100%;
+}
+
+.research-launch-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  padding: 22px 28px;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.research-launch-card:hover {
+  border-color: rgba(0, 113, 227, 0.3);
+  box-shadow: 0 6px 24px -2px rgba(0, 0, 0, 0.08);
+}
+
+.research-launch-info {
+  flex: 1;
+  min-width: 280px;
+}
+
+.research-launch-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  color: #86868b;
+  margin-bottom: 6px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  text-transform: uppercase;
+}
+
+.research-launch-heading {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #1d1d1f;
+  margin-bottom: 4px;
+  letter-spacing: -0.015em;
+}
+
+.research-launch-summary {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #6e6e73;
+}
+
+.research-launch-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.ios-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 980px;
+  background: #0071e3;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(0, 113, 227, 0.25);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.ios-primary-btn:hover {
+  background: #0077ed;
+  box-shadow: 0 4px 14px rgba(0, 113, 227, 0.35);
+  transform: scale(1.02);
+}
+
+.ios-primary-btn:active {
+  transform: scale(0.98);
+}
+
+.ios-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 980px;
+  background: #f5f5f7;
+  color: #1d1d1f;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.ios-secondary-btn:hover {
+  background: #e8e8ed;
+  color: #000000;
+  transform: scale(1.02);
+}
+
+.ios-secondary-btn:active {
+  transform: scale(0.98);
+}
+
+.research-artifact-text {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+/* ==========================================================================
+   PUBLICATION-GRADE PRINT & PDF STYLES
+   Triggered by "Download PDF" -> window.print()
+   ========================================================================== */
+
+@media print {
+  /* Hide navigation, header tools, action buttons, search bars */
+  .top-navbar,
+  .paper-hero-header,
+  .abstract-card,
+  .grid-3,
+  .grid-2,
+  .research-launch-card,
+  .research-open-toolbar,
+  .glossary-search-bar,
+  .academic-toc-bar,
+  .academic-screen-mode-btn,
+  .banner-actions-group,
+  .btn,
+  button,
+  footer {
+    display: none !important;
+  }
+
+  body, html {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+    line-height: 1.45 !important;
+  }
+
+  .main-wrapper {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .academic-paper-container {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .academic-article-frame {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .academic-journal-banner {
+    border-bottom: 2px solid #000000 !important;
+  }
+
+  .diagram-frame {
+    border: 1px solid #d1d5db !important;
+    page-break-inside: avoid !important;
+    margin: 16pt 0 !important;
+  }
+
+  .academic-section {
+    page-break-inside: avoid;
+    margin-bottom: 20pt !important;
+  }
+
+  .booktabs-table {
+    page-break-inside: avoid !important;
+  }
+
+  .equation-row {
+    border: 1px solid #e5e7eb !important;
+    page-break-inside: avoid !important;
+  }
+
+  .glossary-card {
+    page-break-inside: avoid !important;
+    border: 1px solid #e5e7eb !important;
+  }
+}
+
+
+

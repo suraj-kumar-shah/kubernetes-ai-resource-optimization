@@ -8,6 +8,6 @@
     "backend": "npm run dev --prefix backend",
     "build": "npm run build --prefix frontend"
   },
-  "author": "Suraj Kumar Shah",
+  "author": "Cloud Systems & AI Research Group",
   "license": "MIT"
 }

@@ -7,6 +7,6 @@
     "start": "bash -c 'if [ -f ./venv/bin/uvicorn ]; then ./venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000; else python3 -m uvicorn app.main:app --host 0.0.0.0 --port 8000; fi'"
   },
   "keywords": ["kubernetes", "ai-workload", "fastapi", "hpa", "benchmark"],
-  "author": "Suraj Kumar Shah",
+  "author": "Cloud Systems & AI Research Group",
   "license": "MIT"
 }

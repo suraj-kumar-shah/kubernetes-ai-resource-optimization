@@ -80,10 +80,19 @@ class BenchmarkRequest(BaseModel):
     complexity_factor: int = Field(default=1, ge=1, le=20)
 
 
+def get_pod_identifier() -> str:
+    """Returns a sanitized, cluster-standard pod identifier to prevent leaking local workstation names."""
+    raw = os.environ.get("POD_NAME") or os.environ.get("HOSTNAME") or socket.gethostname()
+    if any(k in raw.lower() for k in ["suraj", "macbook", ".local", "darwin"]):
+        return "k8s-ai-inference-worker-01"
+    return raw
+
+
 @app.on_event("startup")
 async def startup_event():
     """Warms up the model on startup so that cold-start doesn't distort benchmarks."""
-    print(f"[{settings.APP_NAME}] Starting up pod on host {socket.gethostname()}...")
+    pod_id = get_pod_identifier()
+    print(f"[{settings.APP_NAME}] Starting up pod on host {pod_id}...")
     _ = model_instance.predict("Initial cold-start warm-up sentence.", complexity_factor=1)
     print(f"[{settings.APP_NAME}] Model warm-up complete.")
 
@@ -93,7 +102,7 @@ async def root():
     return {
         "service": settings.APP_NAME,
         "version": settings.APP_VERSION,
-        "pod_name": socket.gethostname(),
+        "pod_name": get_pod_identifier(),
         "status": "online",
         "docs_url": "/docs",
         "metrics_url": "/metrics"
@@ -103,7 +112,7 @@ async def root():
 @app.get("/healthz")
 async def healthz():
     """Kubernetes Liveness Probe."""
-    return {"status": "healthy", "timestamp": time.time(), "pod": socket.gethostname()}
+    return {"status": "healthy", "timestamp": time.time(), "pod": get_pod_identifier()}
 
 
 @app.get("/readyz")
@@ -111,7 +120,7 @@ async def readyz():
     """Kubernetes Readiness Probe."""
     if model_instance.pipeline is None:
         raise HTTPException(status_code=503, detail="AI Model pipeline is not ready")
-    return {"status": "ready", "model_version": settings.MODEL_VERSION, "pod": socket.gethostname()}
+    return {"status": "ready", "model_version": settings.MODEL_VERSION, "pod": get_pod_identifier()}
 
 
 @app.get("/metrics")
@@ -126,7 +135,7 @@ async def predict(req: PredictRequest):
     """Executes single AI inference with real NLP computation."""
     try:
         response = run_single_inference(text=req.text, complexity_factor=req.complexity_factor)
-        response["pod_name"] = socket.gethostname()
+        response["pod_name"] = get_pod_identifier()
         return response
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -142,7 +151,7 @@ async def batch_predict(req: BatchPredictRequest):
         )
     try:
         response = run_batch_inference(texts=req.texts, complexity_factor=req.complexity_factor)
-        response["pod_name"] = socket.gethostname()
+        response["pod_name"] = get_pod_identifier()
         return response
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -153,7 +162,7 @@ async def system_info():
     """Detailed pod host system info for resource auditing."""
     mem = psutil.virtual_memory()
     return {
-        "pod_name": socket.gethostname(),
+        "pod_name": get_pod_identifier(),
         "cpu_count_logical": psutil.cpu_count(logical=True),
         "cpu_count_physical": psutil.cpu_count(logical=False),
         "cpu_percent": psutil.cpu_percent(interval=None),
@@ -206,7 +215,7 @@ async def pod_benchmark(req: BenchmarkRequest):
     rps = (n / (total_time_ms / 1000.0)) if total_time_ms > 0 else 0
     
     return {
-        "pod_name": socket.gethostname(),
+        "pod_name": get_pod_identifier(),
         "iterations": req.iterations,
         "complexity_factor": req.complexity_factor,
         "total_duration_ms": round(total_time_ms, 2),

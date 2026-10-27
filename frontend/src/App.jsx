@@ -21,12 +21,16 @@ import {
   Bookmark,
   Award,
   Maximize2,
+  Minimize2,
+  ChevronDown,
+  ChevronUp,
   X,
   Radio,
   Clock,
   ShieldCheck,
   HardDrive
 } from 'lucide-react';
+import AboutResearch from './components/AboutResearch';
 
 // Default candidate endpoints (Local FastAPI or Kubernetes NodePort)
 const ENDPOINTS = [
@@ -36,6 +40,8 @@ const ENDPOINTS = [
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('paper');
+  const [showAboutResearch, setShowAboutResearch] = useState(false);
+  const [isWideLayout, setIsWideLayout] = useState(false);
   const [apiBaseUrl, setApiBaseUrl] = useState(import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000');
   const [isConnected, setIsConnected] = useState(false);
   const [systemInfo, setSystemInfo] = useState(null);
@@ -122,6 +128,17 @@ export default function App() {
     navigator.clipboard.writeText(text);
     setCopiedKey(key);
     setTimeout(() => setCopiedKey(null), 2000);
+  };
+
+  const handleDownloadPDF = () => {
+    if (!showAboutResearch) {
+      setShowAboutResearch(true);
+      setTimeout(() => {
+        window.print();
+      }, 350);
+    } else {
+      window.print();
+    }
   };
 
   const handlePredict = async (e) => {
@@ -312,9 +329,9 @@ ${experimentsData.experiments.slice(0, 8).map(e => `${e.experiment_id} & ${e.con
       </header>
 
       {/* Main Body Content Container */}
-      <main className="main-wrapper">
+      <main className={`main-wrapper ${isWideLayout ? 'full-width-wrapper' : ''}`}>
         {/* =========================================================================
-            TAB 1: RESEARCH PAPER OVERVIEW & ABSTRACT
+            HOME PAGE: RESEARCH PAPER OVERVIEW & BENCHMARK SUITE
             ========================================================================= */}
         {activeTab === 'paper' && (
           <div>
@@ -442,9 +459,20 @@ ${experimentsData.experiments.slice(0, 8).map(e => `${e.experiment_id} & ${e.con
                   <div className="code-box">
                     <pre>{bibtexCitation}</pre>
                   </div>
-                  <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
-                    <button className="btn btn-primary btn-sm" onClick={() => setActiveTab('results')}>
-                      View Empirical Visualizations <ArrowRight size={12} />
+                  <div style={{ display: 'flex', gap: '8px', marginTop: '12px', flexWrap: 'wrap' }}>
+                    <button
+                      className="btn btn-primary btn-sm"
+                      onClick={() => {
+                        setShowAboutResearch(true);
+                        setTimeout(() => {
+                          document.getElementById('full-research-study')?.scrollIntoView({ behavior: 'smooth' });
+                        }, 100);
+                      }}
+                    >
+                      <BookOpen size={12} /> {showAboutResearch ? "Jump to Research Study ↓" : "Read Full Paper & Diagrams →"}
+                    </button>
+                    <button className="btn btn-secondary btn-sm" onClick={() => setActiveTab('results')}>
+                      View Findings <ArrowRight size={12} />
                     </button>
                     <button className="btn btn-secondary btn-sm" onClick={downloadCSV}>
                       <Download size={12} /> Download Raw Dataset (CSV)
@@ -452,6 +480,84 @@ ${experimentsData.experiments.slice(0, 8).map(e => `${e.experiment_id} & ${e.con
                   </div>
                 </div>
               </div>
+            </div>
+
+            {/* =========================================================================
+                BOTTOM SECTION: BUTTON TO OPEN DETAILED RESEARCH PAPER & DIAGRAMS
+                ========================================================================= */}
+            <div className="research-toggle-strip" style={{ marginTop: '28px' }}>
+              {!showAboutResearch ? (
+                <div className="research-launch-card">
+                  <div className="research-launch-info">
+                    <div className="research-launch-eyebrow">
+                      <span>RESEARCH ARTIFACT</span>
+                      <span className="dot-sep">&bull;</span>
+                      <span>ARTIFACT ID: K8S-AI-2026-EXP</span>
+                    </div>
+                    <h3 className="research-launch-heading">
+                      Full Research Paper &amp; System Architecture
+                    </h3>
+                    <p className="research-launch-summary">
+                      In-depth empirical methodology, control plane topologies, and 22-term technical nomenclature.
+                    </p>
+                  </div>
+                  <div className="research-launch-actions">
+                    <button
+                      id="open-research-btn"
+                      className="ios-primary-btn"
+                      onClick={() => {
+                        setShowAboutResearch(true);
+                        setTimeout(() => {
+                          document.getElementById('full-research-study')?.scrollIntoView({ behavior: 'smooth' });
+                        }, 100);
+                      }}
+                    >
+                      <BookOpen size={14} />
+                      <span>Read Research Paper</span>
+                    </button>
+                    <button
+                      className="ios-secondary-btn"
+                      onClick={handleDownloadPDF}
+                      title="Download publication-grade PDF of research paper"
+                    >
+                      <Download size={14} />
+                      <span>Download PDF</span>
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div id="full-research-study">
+                  <AboutResearch
+                    onNavigateTab={setActiveTab}
+                    downloadCSV={downloadCSV}
+                    handleCopy={handleCopy}
+                    copiedKey={copiedKey}
+                    bibtexCitation={bibtexCitation}
+                    isWideLayout={isWideLayout}
+                    onToggleWideLayout={() => setIsWideLayout(prev => !prev)}
+                    onClose={() => {
+                      setShowAboutResearch(false);
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    onDownloadPDF={handleDownloadPDF}
+                  />
+
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '24px' }}>
+                    <button className="btn btn-secondary btn-sm" onClick={handleDownloadPDF}>
+                      <Download size={12} /> Download Paper (PDF)
+                    </button>
+                    <button
+                      className="btn btn-secondary btn-sm"
+                      onClick={() => {
+                        setShowAboutResearch(false);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                    >
+                      <ChevronUp size={12} /> Close Paper &amp; Return to Top
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}
